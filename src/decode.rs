@@ -139,13 +139,13 @@ impl<'a> Path<'a> {
         let mut path = self.path.clone();
         path.push(property_name);
         Ok(Path::<'a> {
-            value: match try!(self.as_table()).get(property_name) {
+            value: match self.as_table()?.get(property_name) {
                 Some(value) => value,
                 None => {
                     return Err(Error::ExpectedProperty(Property {
-                            name: property_name.to_string(),
-                            desc: property_desc.to_string(),
-                        })
+                        name: property_name.to_string(),
+                        desc: property_desc.to_string(),
+                    })
                         .at(Self::path_as_string(&path)))
                 }
             },
